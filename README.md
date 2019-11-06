@@ -35,8 +35,9 @@ allennlp NER应用实例
 > data_path是数据存储路径，
 
 ```json
-"train_data_path": "data\\train.txt",
-"test_data_path": "data\\test.txt",
+ "train_data_path": "data\\train.txt",
+ "validation_data_path": "data\\dev.txt",
+ "test_data_path": "data\\test.txt",
 ```
 
 ### 3. model
