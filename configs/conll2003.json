@@ -1,0 +1,74 @@
+{
+  "dataset_reader": {
+    "type": "conll2003",
+    "token_indexers": {
+      "tokens": {
+        "type": "single_id",
+        "lowercase_tokens": true
+      },
+      "token_characters": {
+        "type": "characters"
+      }
+    }
+  },
+  "train_data_path": "data\\train.txt",
+  "validation_data_path": "data\\dev.txt",
+  "test_data_path": "data\\test.txt",
+  "model": {
+    "type": "BiLSTM_CRF",
+    "text_field_embedder": {
+      "token_embedders": {
+        "tokens": {
+          "type": "embedding",
+          "pretrained_file": "glove\\glove.6B.300d.txt",
+          "embedding_dim": 300,
+          "trainable": true
+        },
+        "token_characters": {
+            "type": "character_encoding",
+            "embedding": {
+            "embedding_dim": 16
+            },
+            "encoder": {
+            "type": "cnn",
+            "embedding_dim": 16,
+            "num_filters": 128,
+            "ngram_filter_sizes": [1,2,3,4,5,6,7],
+            "conv_layer_activation": "relu"
+            }
+        }
+      }
+    },
+    "encoder": {
+      "type": "lstm",
+      "input_size": 1196,
+      "hidden_size": 200,
+      "num_layers": 2,
+      "dropout": 0.5,
+      "bidirectional": true
+    },
+    "feedforward": {
+      "input_dim": 400,
+      "num_layers": 2,
+      "hidden_dims": [250,100],
+      "activations": ["relu", "relu"]
+    },
+    "dropout": 0.2,
+    "calculate_span_f1": true,
+    "label_encoding": "BIO"
+  },
+  "iterator": {
+    "type": "bucket",
+    "sorting_keys": [["tokens", "num_tokens"]],
+    "batch_size": 64
+  },
+  "trainer": {
+    "num_epochs": 10,
+    "patience": 10,
+    "cuda_device": -1,
+    "grad_clipping": 5.0,
+    "optimizer": {
+      "type": "adagrad"
+    }
+  }
+}
