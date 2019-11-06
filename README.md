@@ -1,0 +1,2 @@
+# allennlp_ner
+allennlp在CoNLL2003数据集上利用BiLSTM+CRF实现NER
