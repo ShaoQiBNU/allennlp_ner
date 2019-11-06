@@ -9,7 +9,7 @@ allennlp NER应用实例
 
 ## (一) configs
 
-> configs文件夹下是配置文件，json格式，主要包含 **dataset_reader** , ** ..._data_path**, **model**, **iterator**, **trainer**。
+> configs文件夹下是配置文件，json格式，主要包含 **dataset_reader** , **data_path**, **model**, **iterator**, **trainer**。
 
 ### 1. dataset_reader
 
