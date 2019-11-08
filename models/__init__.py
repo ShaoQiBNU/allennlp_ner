@@ -1,1 +1,1 @@
-from models.crf_tagger import CrfTagge
+from .crf_tagger import CrfTagger
