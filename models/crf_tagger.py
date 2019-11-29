@@ -209,8 +209,10 @@ class CrfTagger(Model):
 
         if self._feedforward is not None:
             encoded_text = self._feedforward(encoded_text)
-
+        
+        # 将每个token维度映射到tags的维度
         logits = self.tag_projection_layer(encoded_text)
+        # 获取最优路径
         best_paths = self.crf.viterbi_tags(logits, mask, top_k=self.top_k)
 
         # Just get the top tags and ignore the scores.
