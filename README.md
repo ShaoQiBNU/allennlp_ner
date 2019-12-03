@@ -13,11 +13,11 @@ allennlp NER应用实例
 
 ### 1. dataset_reader
 
-> dataset_reader是数据读取预处理部分，主要有 tokens 和 token_characters，tokens表示word level的处理，lowercase_tokens 表示word进行小写处理，token_characters表示character-level的处理
+> dataset_reader是数据读取预处理部分，主要有 tokens 和 token_characters，tokens表示word level的处理，lowercase_tokens 表示word进行小写处理，token_characters表示character-level的处理，type是dataset_reader的读取类型，默认有conll2003，当设置自己的dataset_reader时，需要在models的__init__.py文件里导入 import dataset_readers
 
 ```json
 "dataset_reader": {
-    "type": "conll2003",
+    "type": "myconll2003",
     "token_indexers": {
       "tokens": {
         "type": "single_id",
@@ -44,7 +44,7 @@ allennlp NER应用实例
 
 > model是模型结构
 text_field_embedder 表示数据预处理 —— word-level采用glove embedding，character-level采用multi-layer CNN 随机初始化embedding
-encoder 表示模型结构BiLSTM，feedforward 表示全连接层，可有可无
+encoder 表示模型结构BiLSTM，feedforward 表示全连接层，可有可无，label_encoding是label的编码格式，有BIO、IOB1、BIOUL等，conll的默认编码是BIO，此处改成BIOUL，在dataset_reader里需要做相应调整，coding_scheme: str = "IOB1" 改成 coding_scheme: str = "BIOUL"
 
 ```json
   "model": {
@@ -88,7 +88,7 @@ encoder 表示模型结构BiLSTM，feedforward 表示全连接层，可有可无
     },
     "dropout": 0.2,
     "calculate_span_f1": true,
-    "label_encoding": "BIO"
+    "label_encoding": "BIOUL"
   }
 ```
 
@@ -121,7 +121,7 @@ encoder 表示模型结构BiLSTM，feedforward 表示全连接层，可有可无
 
 ## (二) dataset_readers
 
-> dataset_readers下是数据读取文件，主要参考allennlp官方代码：https://github.com/allenai/allennlp/blob/master/allennlp/data/dataset_readers/conll2003.py
+> dataset_readers下是数据读取文件，主要参考allennlp官方代码，在此基础上做了修改和调整：https://github.com/allenai/allennlp/blob/master/allennlp/data/dataset_readers/conll2003.py
 
 ## (三) models
 
