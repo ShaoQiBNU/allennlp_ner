@@ -1,6 +1,6 @@
 {
   "dataset_reader": {
-    "type": "conll2003",
+    "type": "myconll2003",
     "token_indexers": {
       "tokens": {
         "type": "single_id",
@@ -55,7 +55,7 @@
     },
     "dropout": 0.2,
     "calculate_span_f1": true,
-    "label_encoding": "BIO"
+    "label_encoding": "BIOUL"
   },
   "iterator": {
     "type": "bucket",
