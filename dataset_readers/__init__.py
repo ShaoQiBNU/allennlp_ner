@@ -1,1 +1,1 @@
-from .conll2003 import Conll2003DatasetReader
+from .conll2003 import MyConll2003DatasetReader
