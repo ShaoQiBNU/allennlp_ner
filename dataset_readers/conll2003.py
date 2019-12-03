@@ -27,8 +27,8 @@ def _is_divider(line: str) -> bool:
             return False
 
 
-@DatasetReader.register("conll2003")
-class Conll2003DatasetReader(DatasetReader):
+@DatasetReader.register("myconll2003")
+class MyConll2003DatasetReader(DatasetReader):
     """
     Reads instances from a pretokenised file where each line is in the following format:
     WORD POS-TAG CHUNK-TAG NER-TAG
@@ -75,7 +75,7 @@ class Conll2003DatasetReader(DatasetReader):
         tag_label: str = "ner",
         feature_labels: Sequence[str] = (),
         lazy: bool = False,
-        coding_scheme: str = "IOB1",
+        coding_scheme: str = "BIOUL",
         label_namespace: str = "labels",
     ) -> None:
         super().__init__(lazy)
