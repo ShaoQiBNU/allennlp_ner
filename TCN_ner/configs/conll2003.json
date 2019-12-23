@@ -1,0 +1,48 @@
+{
+  "dataset_reader": {
+    "type": "myconll2003",
+    "token_indexers": {
+      "tokens": {
+        "type": "single_id",
+        "lowercase_tokens": true
+      }
+    }
+  },
+  "train_data_path": "data\\train.txt",
+  "validation_data_path": "data\\dev.txt",
+  "test_data_path": "data\\test.txt",
+  "model": {
+    "type": "TCN",
+    "text_field_embedder": {
+      "token_embedders": {
+        "tokens": {
+          "type": "embedding",
+          "pretrained_file": "glove\\glove.6B.300d.txt",
+          "embedding_dim": 300,
+          "trainable": true
+        }
+      }
+    },
+    "dropout": 0.2,
+    "calculate_span_f1": true,
+    "label_encoding": "BIO",
+    "tcn_level": 3,
+    "tcn_input_size": 300,
+    "kernel_size": 3,
+    "tcn_hidden_size": 200
+  },
+  "iterator": {
+    "type": "bucket",
+    "sorting_keys": [["tokens", "num_tokens"]],
+    "batch_size": 30
+  },
+  "trainer": {
+    "num_epochs": 10,
+    "patience": 10,
+    "cuda_device": -1,
+    "grad_clipping": 5.0,
+    "optimizer": {
+      "type": "adagrad"
+    }
+  }
+}
